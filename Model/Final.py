@@ -3,6 +3,7 @@ import cv2
 import os
 import warnings
 import logging
+from onnx2tflite import onnx_converter
 
 warnings.filterwarnings("ignore")
 logging.getLogger().setLevel(logging.CRITICAL)
@@ -80,3 +81,15 @@ def main():
         cv2.destroyAllWindows()
 
 main()
+
+# Simpan model YOLOv5 ke ONNX
+dummy_input = torch.randn(1, 3, 640, 640)  # Input ukuran acak sesuai dengan model YOLO
+torch.onnx.export(model, dummy_input, "Human_detection.onnx", opset_version=11)
+print("Model telah dikonversi ke format ONNX")
+
+res = onnx_converter(
+        onnx_model_path = "./Human_detection.onnx",
+        need_simplify = True,
+        output_path = "",
+        target_formats = ['tflite'],
+    )
