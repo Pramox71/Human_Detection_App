@@ -4,7 +4,7 @@ import cv2
 import os
 
 # Memuat model TFLite
-interpreter = tf.lite.Interpreter(model_path="E:\Data_C\Documents\KULIAH\Codingan\Project\Model\Human_detection.tflite")
+interpreter = tf.lite.Interpreter(model_path = "Model\Human_detection.tflite")
 interpreter.allocate_tensors()
 
 input_details = interpreter.get_input_details()
